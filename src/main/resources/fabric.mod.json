@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "roughly_enough_loot_tables",
+  "version": "${version}",
+  "name": "Roughly Enough Loot Tables (RELT)",
+  "description": "",
+  "authors": [
+    "GrigLog"
+  ],
+  "license": "The Unlicense",
+  "icon": "assets/relt/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "griglog.relt.RELT"
+      }
+    ]
+  },
+  "mixins": [
+    "relt.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "fabric-language-kotlin": ">=1.8.2+kotlin.1.7.10",
+    "minecraft": ">=1.18.2",
+    "java": ">=17"
+  }
+}
