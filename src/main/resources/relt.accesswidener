@@ -1,0 +1,33 @@
+accessWidener	v1	named
+
+accessible field net/minecraft/world/entity/ai/village/poi/PoiType matchingStates Ljava/util/Set;
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems item Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems cost I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds itemStack Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds emeraldCost I
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds numberOfItems I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$SuspiciousStewForEmerald
+accessible field net/minecraft/world/entity/npc/VillagerTrades$SuspiciousStewForEmerald effect Lnet/minecraft/world/effect/MobEffect;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$SuspiciousStewForEmerald duration I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems fromItem Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems toItem Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems fromCount I
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems toCount I
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems emeraldCost I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$EnchantedItemForEmeralds
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EnchantedItemForEmeralds itemStack Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EnchantedItemForEmeralds baseEmeraldCost I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldsForVillagerTypeItem
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EmeraldsForVillagerTypeItem trades Ljava/util/Map;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$EmeraldsForVillagerTypeItem cost I
+
+accessible class net/minecraft/world/entity/npc/VillagerTrades$EnchantBookForEmeralds

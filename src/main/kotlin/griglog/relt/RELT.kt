@@ -7,6 +7,6 @@ object RELT: ModInitializer {
     val logger = LogManager.getLogger(id)
 
     override fun onInitialize() {
-        logger.info("Example mod has been initialized.")
+        //ServerLifecycleEvents.SERVER_STARTED.register { server -> logger.info("RELT server started");}
     }
 }

@@ -6,6 +6,13 @@ val loaderVersion: String by project
 val fabricVersion: String by project
 val fabricKotlinVersion: String by project
 val javaVersion = JavaVersion.VERSION_17
+val reiVersion: String by project
+
+buildscript{
+    repositories{
+        maven("https://maven.parchmentmc.org")
+    }
+}
 
 
 plugins {
@@ -23,16 +30,37 @@ base {
 version = modVersion
 group = mavenGroup
 
+loom {
+    accessWidenerPath.set(file("src/main/resources/relt.accesswidener"))
+}
+
 repositories {
     maven("https://www.cursemaven.com")
+    maven("https://maven.shedaniel.me/")
+    maven("https://maven.architectury.dev/")
+    maven("https://maven.parchmentmc.org")
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
-    mappings("net.fabricmc", "yarn", yarnMappings, null, "v2")
+
+    //mappings("net.fabricmc", "yarn", yarnMappings, null, "v2")
+    mappings(loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.18.2:2022.08.21@zip")
+    })
+
     modImplementation("net.fabricmc:fabric-loader:${loaderVersion}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${fabricVersion}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${fabricKotlinVersion}")
+
+    modRuntimeOnly("curse.maven:modmenu-308702:3789482")
+
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:$reiVersion")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:$reiVersion")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$reiVersion")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$reiVersion")
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$reiVersion")
 }
 
 

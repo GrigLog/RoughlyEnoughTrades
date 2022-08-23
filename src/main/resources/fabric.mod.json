@@ -16,6 +16,9 @@
         "adapter": "kotlin",
         "value": "griglog.relt.RELT"
       }
+    ],
+    "rei_client": [
+      "griglog.relt.rei.ClientPlugin"
     ]
   },
   "mixins": [
