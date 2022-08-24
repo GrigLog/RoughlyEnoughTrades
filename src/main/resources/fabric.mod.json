@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "roughly_enough_loot_tables",
+  "id": "roughly_enough_trades",
   "version": "${version}",
-  "name": "Roughly Enough Loot Tables (RELT)",
+  "name": "Roughly Enough Trades (RET)",
   "description": "",
   "authors": [
     "GrigLog"
   ],
   "license": "The Unlicense",
-  "icon": "assets/relt/icon.png",
+  "icon": "assets/roughly_enough_trades/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       {
         "adapter": "kotlin",
-        "value": "griglog.relt.RELT"
+        "value": "griglog.ret.RET"
       }
     ],
     "rei_client": [
-      "griglog.relt.rei.ClientPlugin"
+      "griglog.ret.rei.ClientPlugin"
     ]
   },
   "mixins": [
-    "relt.mixins.json"
+    "roughly_enough_trades.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.9",

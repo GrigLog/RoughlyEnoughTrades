@@ -1,5 +1,7 @@
-package griglog.relt.utils
+package griglog.ret.utils
 
+import net.minecraft.network.chat.TextComponent
+import net.minecraft.world.item.ItemStack
 import java.util.*
 
 val map = TreeMap<Int, String>().apply {
@@ -22,4 +24,9 @@ fun toRoman(number: Int): String {
     val (mapNumber, str) = map.floorEntry(number) ?: return "?"
     return if (number == mapNumber) str
     else str + toRoman(number - mapNumber)
+}
+
+fun wrapHoverName(stack: ItemStack): ItemStack {
+    stack.hoverName = TextComponent("*").append(stack.hoverName).append(TextComponent("*"))
+    return stack
 }

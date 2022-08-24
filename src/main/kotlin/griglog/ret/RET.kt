@@ -1,9 +1,9 @@
-package griglog.relt
+package griglog.ret
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.LogManager
 
-object RELT: ModInitializer {
-    const val id = "roughly_enough_loot_tables"
+object RET: ModInitializer {
+    const val id = "roughly_enough_trades"
     val logger = LogManager.getLogger(id)
 
     override fun onInitialize() {
