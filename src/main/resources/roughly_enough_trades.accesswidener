@@ -43,3 +43,7 @@ accessible field net/minecraft/world/entity/npc/VillagerTrades$TippedArrowForIte
 accessible field net/minecraft/world/entity/npc/VillagerTrades$TippedArrowForItemsAndEmeralds fromCount I
 accessible field net/minecraft/world/entity/npc/VillagerTrades$TippedArrowForItemsAndEmeralds fromItem Lnet/minecraft/world/item/Item;
 
+accessible class net/minecraft/world/entity/npc/VillagerTrades$DyedArmorForEmeralds
+accessible field net/minecraft/world/entity/npc/VillagerTrades$DyedArmorForEmeralds item Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$DyedArmorForEmeralds value I
+

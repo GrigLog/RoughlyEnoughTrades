@@ -37,16 +37,18 @@ class VillagerTradesCategory : DisplayCategory<VillagerTradesCategory.Display> {
 
     override fun getCategoryIdentifier(): CategoryIdentifier<Display> = category
 
-    override fun getTitle() = TranslatableComponent("${RET.id}.villager_trades")
+    override fun getTitle() = TranslatableComponent("merchant.trades")
 
-    override fun getIcon() = EntryStacks.of(Items.EMERALD)
+    override fun getIcon() = EntryStacks.of(EMERALD)
 
     override fun setupDisplay(display: Display, bounds: Rectangle): MutableList<Widget> {
         val center = Point(bounds.centerX, bounds.centerY)
         val widgets = mutableListOf<Widget>()
 
         val extraSlot = display.inputSecondary != null
-        widgets.add(Widgets.createRecipeBase(Rectangle(bounds).apply{width -= if (extraSlot) 20 else 0}))
+
+        val rect = Rectangle(bounds).apply{ if(extraSlot) {x -= 20; width += 20} }
+        widgets.add(Widgets.createRecipeBase(rect))
 
         val arrow = Widgets.createArrow(Point(center.x - 12, center.y - 8))
         widgets.add(arrow)
@@ -80,7 +82,7 @@ class VillagerTradesCategory : DisplayCategory<VillagerTradesCategory.Display> {
 
     override fun getDisplayHeight() = 30
 
-    override fun getDisplayWidth(display: Display?) = if (display?.inputSecondary == null) 130 else 170
+    override fun getDisplayWidth(display: Display?) = 130
 
     class Display
         (val profNameKey: String,
@@ -175,6 +177,11 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                         display.inputSecondary = ItemStack(trade.fromItem, trade.fromCount)
                         registry.add(display)
                     }
+                }
+                is VillagerTrades.DyedArmorForEmeralds -> {
+                    val display = create(ItemStack(EMERALD, trade.value), wrapHoverName(ItemStack(trade.item)))
+                    display.inputSecondary = ItemStack(trade.item)
+                    registry.add(display)
                 }
             }
         }
