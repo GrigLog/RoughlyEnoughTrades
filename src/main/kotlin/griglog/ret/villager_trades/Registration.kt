@@ -77,6 +77,7 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                             ItemStack(EMERALD, trade.cost)))
                 }
                 is VillagerTrades.EnchantBookForEmeralds -> {
+                    val map = mutableMapOf<Int, MutableList<ItemStack>>()
                     for (ench in Registry.ENCHANTMENT){
                         if (!ench.isTradeable)
                             continue
@@ -87,9 +88,11 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                                 avgCost *= 2
                             if (avgCost > 64)
                                 avgCost = 64
-                            registry.add(display.build(ItemStack(EMERALD, avgCost), book))
+                            map.computeIfAbsent(avgCost) { mutableListOf() }.add(book)
                         }
                     }
+                    map.forEach{(cost, books) ->
+                        registry.add(display.build(ItemStack(EMERALD, cost), books)) }
                 }
                 is VillagerTrades.TreasureMapForEmeralds ->
                     registry.add(display.build(ItemStack(EMERALD, trade.emeraldCost), wrapHoverName(ItemStack(Items.FILLED_MAP))))
@@ -115,8 +118,10 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                         var offer: MerchantOffer?
                         while (attempts > 0){
                             offer = trade.getOffer(Minecraft.getInstance().player!!, rand)
-                            if (offer == null || tryDifferentOffers.add(offer) == false)
-                                attempts--
+                            if (offer != null && tryDifferentOffers.add(offer))
+                                attempts++
+                            else
+                                attempts--;
                         }
                         tryDifferentOffers.forEach {registry.add(display.build(it.baseCostA, it.result), if (it.costB.isEmpty) null else it.costB)}
                     } catch (e: Exception){}
