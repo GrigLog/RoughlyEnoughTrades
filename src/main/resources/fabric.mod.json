@@ -18,7 +18,7 @@
       }
     ],
     "rei_client": [
-      "griglog.ret.rei.ClientPlugin"
+      "griglog.ret.ClientPlugin"
     ]
   },
   "mixins": [
