@@ -48,13 +48,13 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${fabricVersion}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${fabricKotlinVersion}")
 
-    modRuntimeOnly("curse.maven:modmenu-308702:3789482")
-
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$reiVersion")
     modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$reiVersion")
+
+    modRuntimeOnly("curse.maven:modmenu-308702:3789482")
 }
 
 

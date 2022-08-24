@@ -14,12 +14,13 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier
 import me.shedaniel.rei.api.common.entry.EntryIngredient
 import me.shedaniel.rei.api.common.util.EntryIngredients
 import me.shedaniel.rei.api.common.util.EntryStacks
+import net.minecraft.client.Minecraft
 import net.minecraft.core.Registry
-import net.minecraft.data.loot.PiglinBarterLoot
 import net.minecraft.network.chat.TextComponent
 import net.minecraft.network.chat.TranslatableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.npc.VillagerTrades
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.EnchantedBookItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -28,7 +29,9 @@ import net.minecraft.world.item.SuspiciousStewItem
 import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.enchantment.EnchantmentInstance
+import net.minecraft.world.item.trading.MerchantOffer
 import java.util.*
+import kotlin.collections.HashSet
 
 class VillagerTradesCategory : DisplayCategory<VillagerTradesCategory.Display> {
     companion object Costants {
@@ -54,6 +57,12 @@ class VillagerTradesCategory : DisplayCategory<VillagerTradesCategory.Display> {
         widgets.add(arrow)
         widgets.add(Widgets.createTooltip(arrow.bounds,
             TranslatableComponent(display.profNameKey)))
+        if (!display.reliable){
+            widgets.add(Widgets.createLabel(Point(center.x-4, center.y-4),
+                TextComponent("???"))
+                .color(0x666666)
+                .noShadow())
+        }
 
         widgets.add(Widgets.createSlot(Point(center.x + 22, center.y - 9))
             .entries(EntryIngredients.of(display.output))
@@ -90,19 +99,19 @@ class VillagerTradesCategory : DisplayCategory<VillagerTradesCategory.Display> {
          val tier: Int,
          val input: ItemStack,
          val output: ItemStack,
-         var inputSecondary: ItemStack? = null)
+         var inputSecondary: ItemStack? = null,
+         var reliable: Boolean = true)
         : me.shedaniel.rei.api.common.display.Display {
 
-            override fun getCategoryIdentifier(): CategoryIdentifier<*> = category
+        override fun getCategoryIdentifier(): CategoryIdentifier<*> = category
 
-            override fun getInputEntries(): List<EntryIngredient> {
-                val inputs = mutableListOf(EntryIngredients.ofItemStacks(stations), EntryIngredients.of(input))
-                inputSecondary?.let{ inputs.add(EntryIngredients.of(it)) }
-                return inputs
-            }
+        override fun getInputEntries(): List<EntryIngredient> {
+            val inputs = mutableListOf(EntryIngredients.ofItemStacks(stations), EntryIngredients.of(input))
+            inputSecondary?.let{ inputs.add(EntryIngredients.of(it)) }
+            return inputs
+        }
 
-            override fun getOutputEntries(): MutableList<EntryIngredient> = Collections.singletonList(EntryIngredients.of(output))
-
+        override fun getOutputEntries(): MutableList<EntryIngredient> = Collections.singletonList(EntryIngredients.of(output))
     }
 }
 
@@ -119,14 +128,17 @@ fun villagerTradesRegister(registry: DisplayRegistry) {
         }
         if (knownJobBlocks.isEmpty())
             continue
+        val profId = Registry.VILLAGER_PROFESSION.getKey(profession)
         VillagerTrades.TRADES[profession]?.let {
-            regProfession(registry, "entity.minecraft.villager." + profession.name, knownJobBlocks.values, it) }
+            regProfession(registry, "entity.minecraft.villager." + profId.path, knownJobBlocks.values, it) }
     }
     regProfession(registry, "entity.minecraft.wandering_trader",
         listOf(ItemStack(Items.WANDERING_TRADER_SPAWN_EGG)), VillagerTrades.WANDERING_TRADER_TRADES)
 }
 
+val rand = Random()
 private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Collection<ItemStack>, trades: Int2ObjectMap<Array<VillagerTrades.ItemListing>>){
+    var someFailed = false
     trades.toSortedMap().forEach { (tier, trades) ->
         val create = { a:ItemStack, b:ItemStack -> VillagerTradesCategory.Display(name, jobBlocks, tier, a, b)}
         for (trade in trades){
@@ -183,9 +195,34 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                     display.inputSecondary = ItemStack(trade.item)
                     registry.add(display)
                 }
+                else -> {
+                    someFailed = true
+                    try {
+                        var attempts = 5
+                        val tryDifferentOffers = TreeSet(::compareOffers)
+                        var offer: MerchantOffer?
+                        while (attempts > 0){
+                            offer = trade.getOffer(Minecraft.getInstance().player!!, rand)
+                            if (offer == null || tryDifferentOffers.add(offer) == false)
+                                attempts--
+                        }
+                        tryDifferentOffers.forEach {registry.add(create(it.baseCostA, it.result)
+                            .apply{inputSecondary = if (it.costB.isEmpty) null else it.costB})}
+                    } catch (e: Exception){}
+                }
             }
         }
     }
+    if (someFailed){
+        registry.add(VillagerTradesCategory.Display(name, jobBlocks, 0, ItemStack(EMERALD), ItemStack(EMERALD)).apply { reliable = false })
+    }
 }
 
-
+fun compareOffers(a: MerchantOffer, b: MerchantOffer): Int {
+    var diff = Registry.ITEM.getId(a.baseCostA.item) - Registry.ITEM.getId(b.baseCostA.item)
+    if (diff != 0) return diff
+    diff = Registry.ITEM.getId(a.costB.item) - Registry.ITEM.getId(b.costB.item)
+    if (diff != 0) return diff
+    diff = Registry.ITEM.getId(a.result.item) - Registry.ITEM.getId(b.result.item)
+    return diff
+}
