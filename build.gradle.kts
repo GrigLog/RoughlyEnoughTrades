@@ -8,12 +8,6 @@ val fabricKotlinVersion: String by project
 val javaVersion = JavaVersion.VERSION_17
 val reiVersion: String by project
 
-buildscript{
-    repositories{
-        maven("https://maven.parchmentmc.org")
-    }
-}
-
 
 plugins {
     id("fabric-loom")
@@ -31,7 +25,7 @@ version = modVersion
 group = mavenGroup
 
 loom {
-    accessWidenerPath.set(file("src/main/resources/relt.accesswidener"))
+    accessWidenerPath.set(file("src/main/resources/roughly_enough_trades.accesswidener"))
 }
 
 repositories {
@@ -83,4 +77,5 @@ tasks {
         targetCompatibility = javaVersion
         withSourcesJar()
     }
+
 }

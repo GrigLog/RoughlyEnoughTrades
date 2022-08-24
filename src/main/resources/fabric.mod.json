@@ -8,7 +8,7 @@
     "GrigLog"
   ],
   "license": "The Unlicense",
-  "icon": "assets/roughly_enough_trades/icon.png",
+  "icon": "assets/roughly_enough_trades/emerald.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -24,11 +24,13 @@
   "mixins": [
     "roughly_enough_trades.mixins.json"
   ],
+  "accessWidener" : "roughly_enough_trades.accesswidener",
   "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.18.2",
     "fabricloader": ">=0.14.9",
     "fabric": "*",
     "fabric-language-kotlin": ">=1.8.2+kotlin.1.7.10",
-    "minecraft": ">=1.18.2",
-    "java": ">=17"
+    "roughlyenoughitems": ">=8.3.529"
   }
 }
