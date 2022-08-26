@@ -7,9 +7,9 @@
   "authors": [
     "GrigLog"
   ],
-  "license": "The Unlicense",
+  "license": "MIT",
   "icon": "assets/roughly_enough_trades/emerald.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       {
