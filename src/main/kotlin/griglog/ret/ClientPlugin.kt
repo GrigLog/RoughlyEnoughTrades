@@ -9,11 +9,11 @@ import net.minecraft.resources.ResourceLocation
 
 
 class ClientPlugin : REIClientPlugin{
-    override fun registerCategories(registry: CategoryRegistry?) {
-        registry?.add(TradesCategory())
+    override fun registerCategories(registry: CategoryRegistry) {
+        registry.add(TradesCategory())
     }
 
-    override fun registerDisplays(registry: DisplayRegistry?) {
-        villagerTradesRegister(registry!!)
+    override fun registerDisplays(registry: DisplayRegistry) {
+        villagerTradesRegister(registry)
     }
 }

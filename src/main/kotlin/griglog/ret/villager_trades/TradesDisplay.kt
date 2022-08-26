@@ -21,7 +21,7 @@ class TradesDisplay(
     override fun getCategoryIdentifier(): CategoryIdentifier<*> = TradesCategory.category
 
     override fun getInputEntries(): List<EntryIngredient> {
-        val inputs = mutableListOf(EntryIngredients.ofItemStacks(stations), EntryIngredients.of(input))
+        val inputs = mutableListOf(EntryIngredients.of(input), EntryIngredients.ofItemStacks(stations))
         inputSecondary?.let{ inputs.add(EntryIngredients.of(it)) }
         return inputs
     }

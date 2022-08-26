@@ -51,7 +51,7 @@ class TradesCategory : DisplayCategory<TradesDisplay> {
         }
 
         widgets.add(Widgets.createSlot(Point(center.x + 22, center.y - 9))
-            .entries(EntryIngredients.ofItemStacks(display.output))
+            .entries(display.outputEntries[0])
             .markOutput())
 
         widgets.add(Widgets.createLabel(Point(center.x + 50, center.y - 4),
@@ -59,18 +59,18 @@ class TradesCategory : DisplayCategory<TradesDisplay> {
             .color(0x666666)
             .noShadow())
 
-        if (extraSlot){
-            widgets.add(Widgets.createSlot(Point(center.x - 80, center.y - 8)).
-            entries(EntryIngredients.of(display.inputSecondary)))
-        }
-
         widgets.add(Widgets.createSlot(Point(center.x - 40, center.y - 8))
-            .entries(EntryIngredients.of(display.input))
+            .entries(display.inputEntries[0])
             .markInput())
 
         widgets.add(Widgets.createSlot(Point(center.x - 60, center.y - 8))
-            .entries(EntryIngredients.ofItemStacks(display.stations))
+            .entries(display.inputEntries[1])
             .markInput())
+
+        if (extraSlot){
+            widgets.add(Widgets.createSlot(Point(center.x - 80, center.y - 8)).
+            entries(display.inputEntries[2]))
+        }
 
         return widgets
     }
