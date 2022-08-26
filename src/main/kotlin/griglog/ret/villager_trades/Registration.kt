@@ -68,7 +68,7 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                         ItemStack(trade.fromItem.item, trade.fromCount))
                 is VillagerTrades.EnchantedItemForEmeralds ->
                     registry.add(display.build(
-                        ItemStack(EMERALD),
+                        ItemStack(EMERALD, trade.baseEmeraldCost),
                         wrapHoverName(ItemStack(trade.itemStack.item))))
                 is VillagerTrades.EmeraldsForVillagerTypeItem -> {
                     for (item in trade.trades.values)
