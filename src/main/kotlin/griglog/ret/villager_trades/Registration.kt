@@ -64,8 +64,8 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                 is VillagerTrades.ItemsAndEmeraldsToItems ->
                     registry.add(display.build(
                         ItemStack(EMERALD, trade.emeraldCost),
-                        ItemStack(trade.toItem.item, trade.toCount)),
-                        ItemStack(trade.fromItem.item, trade.fromCount))
+                        ItemStack(trade.toItem.item, trade.toCount),
+                        ItemStack(trade.fromItem.item, trade.fromCount)))
                 is VillagerTrades.EnchantedItemForEmeralds ->
                     registry.add(display.build(
                         ItemStack(EMERALD, trade.baseEmeraldCost),
