@@ -1,6 +1,6 @@
 package griglog.ret.utils
 
-import net.minecraft.network.chat.TextComponent
+import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import java.util.*
 
@@ -27,6 +27,6 @@ fun toRoman(number: Int): String {
 }
 
 fun wrapHoverName(stack: ItemStack): ItemStack {
-    stack.hoverName = TextComponent("*").append(stack.hoverName).append(TextComponent("*"))
+    stack.hoverName = Component.literal("*").append(stack.hoverName).append(Component.literal("*"))
     return stack
 }

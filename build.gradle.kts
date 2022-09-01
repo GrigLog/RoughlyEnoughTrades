@@ -7,6 +7,7 @@ val fabricVersion: String by project
 val fabricKotlinVersion: String by project
 val javaVersion = JavaVersion.VERSION_17
 val reiVersion: String by project
+val parchmentVersion: String by project
 
 
 plugins {
@@ -41,20 +42,22 @@ dependencies {
     //mappings("net.fabricmc", "yarn", yarnMappings, null, "v2")
     mappings(loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.18.2:2022.08.21@zip")
+        parchment("org.parchmentmc.data:parchment-$minecraftVersion:$parchmentVersion@zip")
     })
 
     modImplementation("net.fabricmc:fabric-loader:${loaderVersion}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${fabricVersion}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${fabricKotlinVersion}")
 
+
+    //runClient crashes, I don't know why.
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$reiVersion")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$reiVersion")
     modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$reiVersion")
 
-    modRuntimeOnly("curse.maven:modmenu-308702:3789482")
+    modRuntimeOnly("curse.maven:modmenu-308702:3920481")
 }
 
 

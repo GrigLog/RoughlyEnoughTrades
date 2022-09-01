@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "roughly_enough_trades",
   "version": "${version}",
-  "name": "Roughly Enough Trades (RET)",
+  "name": "Roughly Enough Trades",
   "description": "",
   "authors": [
     "GrigLog"
@@ -21,16 +21,13 @@
       "griglog.ret.ClientPlugin"
     ]
   },
-  "mixins": [
-    "roughly_enough_trades.mixins.json"
-  ],
   "accessWidener" : "roughly_enough_trades.accesswidener",
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.18.2",
-    "fabricloader": ">=0.14.8",
+    "minecraft": ">=1.19.2",
+    "fabricloader": ">=0.14.9",
     "fabric": "*",
     "fabric-language-kotlin": ">=1.8.1+kotlin.1.7.10",
-    "roughlyenoughitems": ">=8.3.519"
+    "roughlyenoughitems": ">=9.1"
   }
 }

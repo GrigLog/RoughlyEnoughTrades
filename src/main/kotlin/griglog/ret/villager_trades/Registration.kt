@@ -4,8 +4,10 @@ import griglog.ret.utils.wrapHoverName
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry
 import net.minecraft.client.Minecraft
+import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.RandomSource
 import net.minecraft.world.entity.npc.VillagerTrades
 import net.minecraft.world.item.EnchantedBookItem
 import net.minecraft.world.item.ItemStack
@@ -16,31 +18,37 @@ import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.enchantment.EnchantmentInstance
 import net.minecraft.world.item.trading.MerchantOffer
+import net.minecraft.world.level.block.Blocks
 import java.util.*
 
 fun villagerTradesRegister(registry: DisplayRegistry) {
+    val rand = RandomSource.create()
     for (profession in Registry.VILLAGER_PROFESSION) {
-        val knownJobBlocks = HashMap<ResourceLocation, ItemStack>();
-        for (state in profession.jobPoiType.matchingStates) {
-            val jobBlockItem = ItemStack(state.block)
-            if (jobBlockItem.isEmpty)
-                continue;
-            val id = Registry.ITEM.getKey(jobBlockItem.item)
-            knownJobBlocks.putIfAbsent(id, jobBlockItem)
+        val knownJobBlocks = HashMap<ResourceLocation, ItemStack>()
+        for (poiType in Registry.POINT_OF_INTEREST_TYPE.holders()){
+            if (!profession.acquirableJobSite.test(poiType))
+                continue
+            for (state in poiType.value().matchingStates) {
+                val jobBlockItem = ItemStack(state.block)
+                if (jobBlockItem.isEmpty)
+                    continue
+                val id = Registry.ITEM.getKey(jobBlockItem.item)
+                knownJobBlocks.putIfAbsent(id, jobBlockItem)
+            }
         }
         if (knownJobBlocks.isEmpty())
             continue
         val profId = Registry.VILLAGER_PROFESSION.getKey(profession)
         VillagerTrades.TRADES[profession]?.let {
-            regProfession(registry, "entity.minecraft.villager." + profId.path, knownJobBlocks.values, it) }
+            regProfession(registry, "entity.minecraft.villager." + profId.path, knownJobBlocks.values, it, rand) }
     }
     regProfession(registry, "entity.minecraft.wandering_trader",
-        listOf(ItemStack(Items.WANDERING_TRADER_SPAWN_EGG)), VillagerTrades.WANDERING_TRADER_TRADES)
+        listOf(ItemStack(Items.WANDERING_TRADER_SPAWN_EGG)), VillagerTrades.WANDERING_TRADER_TRADES, rand)
 }
 
 
-val rand = Random()
-private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Collection<ItemStack>, trades: Int2ObjectMap<Array<VillagerTrades.ItemListing>>){
+private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Collection<ItemStack>,
+                          trades: Int2ObjectMap<Array<VillagerTrades.ItemListing>>, rand: RandomSource){
     var someFailed = false
     trades.toSortedMap().forEach { (tier, trades) ->
         val display = TradesDisplay.Builder(name, jobBlocks, tier)
@@ -64,8 +72,8 @@ private fun regProfession(registry: DisplayRegistry, name: String, jobBlocks: Co
                 is VillagerTrades.ItemsAndEmeraldsToItems ->
                     registry.add(display.build(
                         ItemStack(EMERALD, trade.emeraldCost),
-                        ItemStack(trade.toItem.item, trade.toCount)),
-                        ItemStack(trade.fromItem.item, trade.fromCount))
+                        ItemStack(trade.toItem.item, trade.toCount),
+                        ItemStack(trade.fromItem.item, trade.fromCount)))
                 is VillagerTrades.EnchantedItemForEmeralds ->
                     registry.add(display.build(
                         ItemStack(EMERALD, trade.baseEmeraldCost),

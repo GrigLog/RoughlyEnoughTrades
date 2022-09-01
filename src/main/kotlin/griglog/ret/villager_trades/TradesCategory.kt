@@ -10,8 +10,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory
 import me.shedaniel.rei.api.common.category.CategoryIdentifier
 import me.shedaniel.rei.api.common.util.EntryIngredients
 import me.shedaniel.rei.api.common.util.EntryStacks
-import net.minecraft.network.chat.TextComponent
-import net.minecraft.network.chat.TranslatableComponent
+import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Items.EMERALD
 
 //responsible for GUI drawing
@@ -22,7 +21,7 @@ class TradesCategory : DisplayCategory<TradesDisplay> {
 
     override fun getCategoryIdentifier(): CategoryIdentifier<TradesDisplay> = category
 
-    override fun getTitle() = TranslatableComponent("merchant.trades")
+    override fun getTitle() = Component.translatable("merchant.trades")
 
     override fun getIcon() = EntryStacks.of(EMERALD)
 
@@ -42,10 +41,10 @@ class TradesCategory : DisplayCategory<TradesDisplay> {
         val arrow = Widgets.createArrow(Point(center.x - 12, center.y - 8))
         widgets.add(arrow)
         widgets.add(Widgets.createTooltip(arrow.bounds,
-            TranslatableComponent(display.profNameKey)))
+            Component.translatable(display.profNameKey)))
         if (!display.reliable){
             widgets.add(Widgets.createLabel(Point(center.x-4, center.y-4),
-                TextComponent("???"))
+                Component.literal("???"))
                 .color(0x666666)
                 .noShadow())
         }
@@ -55,7 +54,7 @@ class TradesCategory : DisplayCategory<TradesDisplay> {
             .markOutput())
 
         widgets.add(Widgets.createLabel(Point(center.x + 50, center.y - 4),
-            TextComponent(toRoman(display.tier)))
+            Component.translatable(toRoman(display.tier)))
             .color(0x666666)
             .noShadow())
 
