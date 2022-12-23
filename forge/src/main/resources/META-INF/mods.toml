@@ -1,0 +1,40 @@
+modLoader = "kotlinforforge"
+loaderVersion = "[3,)"
+#issueTrackerURL = ""
+license = "Insert License Here"
+
+[[mods]]
+modId = "roughly_enough_trades"
+version = "${version}"
+displayName = "Roughly Enough Trades"
+authors = "GrigLog"
+description = "REI addon showing villager trades"
+logoFile = "emerald.png"
+
+[[dependencies.roughly_enough_trades]]
+modId = "forge"
+mandatory = true
+versionRange = "[43,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.roughly_enough_trades]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.roughly_enough_trades]]
+modId = "architectury"
+mandatory = true
+versionRange = "[6.2.43,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.roughly_enough_trades]]
+modId = "roughlyenoughitems"
+mandatory = true
+versionRange = "[9.1,)"
+ordering = "AFTER"
+side = "BOTH"
