@@ -32,7 +32,7 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    modRuntimeOnly("curse.maven:modmenu-308702:3920481")
+    modRuntimeOnly("curse.maven:modmenu-308702:4159524")
     //GrigLog: I would love to know why do I have to use its adapter in order to run the main entrypoint
     modImplementation "net.fabricmc:fabric-language-kotlin:${fabric_kotlin_version}"
 
@@ -42,10 +42,8 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
-
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand(project.properties)
     }
 }
 

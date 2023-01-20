@@ -43,16 +43,15 @@ dependencies {
     forgeRuntimeLibrary("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     forgeRuntimeLibrary("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
 
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
+    //don't trust the docs. Implementation required, not runtime! As .forge package is there
+    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:$rei_version"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:$rei_version"
 }
 
 processResources {
-    inputs.property "version", project.version
-
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand(project.properties)
     }
 }
 

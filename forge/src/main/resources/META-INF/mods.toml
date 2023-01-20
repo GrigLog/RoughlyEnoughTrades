@@ -21,7 +21,7 @@ side = "BOTH"
 [[dependencies.roughly_enough_trades]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,)"
+versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -35,6 +35,6 @@ side = "BOTH"
 [[dependencies.roughly_enough_trades]]
 modId = "roughlyenoughitems"
 mandatory = true
-versionRange = "[9.1,)"
+versionRange = "[10,)"
 ordering = "AFTER"
 side = "BOTH"

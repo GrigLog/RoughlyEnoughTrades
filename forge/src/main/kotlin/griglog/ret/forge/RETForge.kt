@@ -8,7 +8,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
 @Mod(RET.id)
 object RETForge {
     init {
-        System.out.println("KOTLIN FORGE INIT")
+        //System.out.println("KOTLIN FORGE INIT")
         EventBuses.registerModEventBus(RET.id, MOD_CONTEXT.getKEventBus()) //The game crashes if I don't register???
     }
 }
