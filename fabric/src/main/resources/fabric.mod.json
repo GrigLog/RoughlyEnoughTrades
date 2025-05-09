@@ -16,6 +16,9 @@
         "adapter": "kotlin",
         "value": "griglog.ret.fabric.RETFabric"
       }
+    ],
+    "rei_client": [
+      "griglog.ret.fabric.ClientPlugin"
     ]
   },
   "depends": {

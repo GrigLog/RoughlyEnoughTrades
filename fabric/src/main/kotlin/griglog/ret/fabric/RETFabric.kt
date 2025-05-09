@@ -4,6 +4,6 @@ import net.fabricmc.api.ModInitializer
 
 object RETFabric : ModInitializer {
     override fun onInitialize() {
-        System.out.println("KOTLIN FABRIC INIT")
+        //System.out.println("KOTLIN FABRIC INIT")
     }
 }

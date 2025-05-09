@@ -58,7 +58,10 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
+    //don't trust the docs. Implementation required, not runtime! As .forge package is there
+    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:$rei_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:$rei_version"
     implementation "thedarkcolour:kotlinforforge:${kotlin_for_forge_version}"
 }
 
