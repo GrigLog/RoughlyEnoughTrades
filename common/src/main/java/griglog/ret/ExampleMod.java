@@ -5,5 +5,6 @@ public final class ExampleMod {
 
     public static void init() {
         // Write common init code here.
+        System.out.println("roughly_enough_trades is working");
     }
 }

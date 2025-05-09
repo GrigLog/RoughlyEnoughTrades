@@ -11,8 +11,12 @@ plugins {
 apply plugin: 'kotlin'
 
 loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
     forge {
         mixinConfig "roughly_enough_trades.mixins.json"
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
     }
 }
 
@@ -59,10 +63,8 @@ dependencies {
 }
 
 processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('META-INF/mods.toml') {
-        expand version: project.version
+    filesMatching("META-INF/mods.toml") {
+        expand(project.properties)
     }
 }
 
